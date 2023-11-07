@@ -6,4 +6,23 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Abstract\" />
+    <Folder Include="Concrete\InMemory\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.13" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Entities\Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CorePackagesGeneral">
+      <HintPath>..\..\ProjectCorePackages\CorePackagesGeneral\bin\Debug\net7.0\CorePackagesGeneral.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

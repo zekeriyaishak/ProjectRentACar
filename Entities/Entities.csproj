@@ -6,4 +6,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Concrete\" />
+    <Folder Include="DTOs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CorePackagesGeneral">
+      <HintPath>..\..\ProjectCorePackages\CorePackagesGeneral\bin\Debug\net7.0\CorePackagesGeneral.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

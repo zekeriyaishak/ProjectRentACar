@@ -12,7 +12,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\Business\Business.csproj" />
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+    <ProjectReference Include="..\Entities\Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CorePackagesGeneral">
+      <HintPath>..\..\ProjectCorePackages\CorePackagesGeneral\bin\Debug\net7.0\CorePackagesGeneral.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
