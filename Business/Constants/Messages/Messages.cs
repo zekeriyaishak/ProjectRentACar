@@ -16,6 +16,10 @@ public static class Messages
     public static string ColorDeleted = "Renk silinmiştir";
     public static string ColorUpdated = "Renk güncellenmiştir";
     public static string ColorListed = "Renkler getirilmiştir";
+    public static string CarAdded = "Araba eklenmiştir";
+    public static string CarDeleted = "Araba silinmiştir";
+    public static string CarUpdated = "Araba güncellenmiştir";
+    public static string CarListed = "Arabalar getirilmiştir";
 
 
 
