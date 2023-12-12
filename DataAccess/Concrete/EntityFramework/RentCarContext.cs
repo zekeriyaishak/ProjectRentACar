@@ -12,10 +12,11 @@ namespace DataAccess.Concrete.EntityFramework
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-SDKFJ6F;Initial Catalog=rent-a-car-prod;Integrated Security=True;Trusted_Connection=true;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=rent-a-car-prod;Integrated Security=True;Trusted_Connection=true;TrustServerCertificate=True");
         }
 
         public DbSet<Brand> Brands { get; set; }
+        public DbSet<Color> Colors { get; set; }
 
     }
 }

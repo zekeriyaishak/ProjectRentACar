@@ -23,7 +23,10 @@ public class AutofacBusinessModule : Module
     {
         builder.RegisterType<BrandManager>().As<IBrandService>().SingleInstance();
         builder.RegisterType<EfBrandDal>().As<IBrandDal>().SingleInstance();
-       
+
+        builder.RegisterType<ColorManager>().As<IColorService>().SingleInstance();
+        builder.RegisterType<EfColorDal>().As<IColorDal>().SingleInstance();
+
         builder.RegisterType<FileHelper>().As<IFileHelper>().SingleInstance();
         builder.RegisterType<JwtHelper>().As<ITokenHelper>();
         

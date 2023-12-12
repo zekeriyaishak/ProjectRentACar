@@ -10,6 +10,13 @@ public static class Messages
 {
     public static string BrandAdded = "Marka eklenmiştir";
     public static string BrandDeleted = "Marka silinmiştir";
-    public static string Branduptaded = "Marka güncellenmiştir";
+    public static string BrandUpdated = "Marka güncellenmiştir";
     public static string BrandListed = "Markalar getirilmiştir";
+    public static string ColorAdded = "Renk eklenmiştir";
+    public static string ColorDeleted = "Renk silinmiştir";
+    public static string ColorUpdated = "Renk güncellenmiştir";
+    public static string ColorListed = "Renkler getirilmiştir";
+
+
+
 }
