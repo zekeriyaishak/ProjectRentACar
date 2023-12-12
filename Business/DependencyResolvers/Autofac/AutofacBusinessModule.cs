@@ -27,6 +27,10 @@ public class AutofacBusinessModule : Module
         builder.RegisterType<ColorManager>().As<IColorService>().SingleInstance();
         builder.RegisterType<EfColorDal>().As<IColorDal>().SingleInstance();
 
+        builder.RegisterType<CarManager>().As<ICarService>().SingleInstance();
+        builder.RegisterType<EfCarDal>().As<ICarDal>().SingleInstance();
+
+
         builder.RegisterType<FileHelper>().As<IFileHelper>().SingleInstance();
         builder.RegisterType<JwtHelper>().As<ITokenHelper>();
         
