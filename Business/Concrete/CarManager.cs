@@ -4,6 +4,7 @@ using CorePackagesGeneral.Utilities.Results.Abstract;
 using CorePackagesGeneral.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,10 +47,29 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(car, Messages.CarListed);
         }
 
+        public IDataResult<List<CarDetailsDTOs>> GetCarDetails()
+        {
+            var carDetails = _carDal.GetCarDetails();
+            return new SuccessDataResult<List<CarDetailsDTOs>>(carDetails, Messages.CarListed);
+        }
+
+        public IDataResult<List<CarDetailsDTOs>> GetCarDetailsByCarId(int carId)
+        {
+            var car = _carDal.GetCarDetails(x=>x.CarId == carId);
+            return new SuccessDataResult<List<CarDetailsDTOs>>(car, Messages.CarListed);
+        }
+
+        public IDataResult<List<CarDetailsDTOs>> GetCarDetailsByColorsAndBrand(int brandId, int colorId)
+        {
+            var car = _carDal.GetCarDetails(x => x.BrandId == brandId && x.ColorId == colorId);
+            return new SuccessDataResult<List<CarDetailsDTOs>>(car, Messages.CarListed);
+        }
+
         public IResult UpdateCar(Car car)
         {
             _carDal.Update(car);
             return new SuccessResult(Messages.CarUpdated);
         }
+
     }
 }

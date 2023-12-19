@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using CorePackagesGeneral.Utilities.Results.Concrete;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -67,6 +68,42 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
+        [HttpGet("getallcardetails")]
+        public IActionResult GetAllCarsDetails()
+        {
+            var result = _carService.GetCarDetails();
+            if(result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getcardetailsbycarid")]
+        public IActionResult GetCarsDetailsByCarId(int carId)
+        {
+            var result = _carService.GetCarDetailsByCarId(carId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("GetCarDetailsByColorsAndBrand")]
+        public IActionResult GetCarDetailsByColorsAndBrandd(int brandId, int colorId)
+        {
+            var result = _carService.GetCarDetailsByColorsAndBrand(brandId, colorId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+
+
 
     }
 }
