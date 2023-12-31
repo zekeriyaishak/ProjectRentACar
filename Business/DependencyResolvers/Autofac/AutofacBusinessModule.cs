@@ -40,6 +40,9 @@ public class AutofacBusinessModule : Module
         builder.RegisterType<CustomerManager>().As<ICustomerService>().SingleInstance();
         builder.RegisterType<EfCustomerDal>().As<ICustomerDal>().SingleInstance();
 
+        builder.RegisterType<RentalManager>().As<IRentalService>().SingleInstance();
+        builder.RegisterType<EfRentalDal>().As<IRentalDal>().SingleInstance();
+
         builder.RegisterType<AuthManager>().As<IAuthService>();
 
 
