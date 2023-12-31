@@ -32,4 +32,9 @@ public static class Messages
     public static string UserDeleted = "Kullanıcı silinmiştir";
     public static string UserListed = "Kullanıcılar listelenmiştir";
     public static string UserUpdate = "Kullanıcı güncellenmiştir";
+
+    public static string CustomerAdded = "Müşteri eklenmiştir";
+    public static string CustomerDeleted = "Müşteri Silinmiştir";
+    public static string CustomerListed = "Müşteriler listelenmiştir";
+    public static string CustomerUpdate = "Müşteriler Güncellenmiştir";
 }
