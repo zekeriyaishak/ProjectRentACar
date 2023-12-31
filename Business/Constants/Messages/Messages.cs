@@ -43,4 +43,12 @@ public static class Messages
     public static string CustomerDeleted = "Müşteri Silinmiştir";
     public static string CustomerListed = "Müşteriler listelenmiştir";
     public static string CustomerUpdate = "Müşteriler Güncellenmiştir";
+
+    public static string RentAlAdded = "Kiralanacak araç eklendi";
+    public static string RentAlDeleted = "Kiralanan araba silinmiştir";
+    public static string RentAlUptaded = "Kiralanacak araç güncellendi";
+    public static string RentAlListed = "Kiralanacak araçlar listelendi";
+    public static string RentCarNotDescription = "Aracın açıklaması boş geçilemez";
+    public static string RentACarNotAvailable = "Araç belirtilen aralıkta uygun değil.";
+    public static string RentACarAvailable = "Belirtilen tarihte araç durumu müsait";
 }
