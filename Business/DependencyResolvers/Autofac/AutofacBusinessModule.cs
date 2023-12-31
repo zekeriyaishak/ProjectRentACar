@@ -8,7 +8,9 @@ using CorePackagesGeneral.Utilities.Helpers.FileHelper.Concrete;
 using CorePackagesGeneral.Utilities.Interceptors;
 using CorePackagesGeneral.Utilities.Security.JWT;
 using DataAccess.Abstract;
+using DataAccess.Concrete;
 using DataAccess.Concrete.EntityFramework;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,10 +32,19 @@ public class AutofacBusinessModule : Module
         builder.RegisterType<CarManager>().As<ICarService>().SingleInstance();
         builder.RegisterType<EfCarDal>().As<ICarDal>().SingleInstance();
 
+        builder.RegisterType<UserManager>().As<IUserService>().SingleInstance();
+        builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
+
+        builder.RegisterType<AuthManager>().As<IAuthService>();
+
 
         builder.RegisterType<FileHelper>().As<IFileHelper>().SingleInstance();
         builder.RegisterType<JwtHelper>().As<ITokenHelper>();
-        
+
+
+        builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>();
+
+
         var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
         builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
