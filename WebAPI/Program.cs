@@ -4,6 +4,10 @@ using Business.DependencyResolvers.Autofac;
 using CorePackagesGeneral.DependencyResolvers;
 using CorePackagesGeneral.Extensions;
 using CorePackagesGeneral.IoC.Abstract;
+using CorePackagesGeneral.Utilities.Security.JWT;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using CorePackagesGeneral.Utilities.Security.Encryption;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +15,23 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddCors();
+
+var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidIssuer = tokenOptions.Issuer,
+            ValidAudience = tokenOptions.Audience,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
+        };
+    });
 
 builder.Services.AddDependencyResolvers(new ICoreModule[]
         {
