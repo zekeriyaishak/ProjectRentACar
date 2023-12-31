@@ -32,4 +32,10 @@ public static class Messages
     public static string UserDeleted = "Kullanıcı silinmiştir";
     public static string UserListed = "Kullanıcılar listelenmiştir";
     public static string UserUpdate = "Kullanıcı güncellenmiştir";
+
+    public static string CarImageAdded = "Araba resmi eklendi";
+    public static string CarImageDelete = "Araba resmi silindi";
+    public static string CarImageGetAll = "Araba resimleri gelmiştir";
+    public static string CarImageUpdate = "Araba resimi güncellenmiştir";
+    public static string CarImageLimitExceded = "En fazla bir arabaya 5 resim ekleyebilirsiniz";
 }

@@ -1,16 +1,15 @@
 ﻿using CorePackagesGeneral.DataAccess.EntityFramework;
 using CorePackagesGeneral.Entities.Concrete;
 using DataAccess.Abstract;
-using DataAccess.Concrete.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Concrete;
+namespace DataAccess.Concrete.EntityFramework;
 
-public class EfUserDal:EfEntityRepositoryBase<User,RentCarContext>, IUserDal
+public class EfUserDal : EfEntityRepositoryBase<User, RentCarContext>, IUserDal
 {
     public List<OperationClaim> GetClaims(User user)
     {
