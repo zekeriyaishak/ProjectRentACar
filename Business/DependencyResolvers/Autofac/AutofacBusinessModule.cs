@@ -8,7 +8,6 @@ using CorePackagesGeneral.Utilities.Helpers.FileHelper.Concrete;
 using CorePackagesGeneral.Utilities.Interceptors;
 using CorePackagesGeneral.Utilities.Security.JWT;
 using DataAccess.Abstract;
-using DataAccess.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -34,6 +33,12 @@ public class AutofacBusinessModule : Module
 
         builder.RegisterType<UserManager>().As<IUserService>().SingleInstance();
         builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
+
+        builder.RegisterType<CarImageManager>().As<ICarImageService>().SingleInstance();
+        builder.RegisterType<EfCarImageDal>().As<ICarImageDal>().SingleInstance();
+
+        builder.RegisterType<CustomerManager>().As<ICustomerService>().SingleInstance();
+        builder.RegisterType<EfCustomerDal>().As<ICustomerDal>().SingleInstance();
 
         builder.RegisterType<AuthManager>().As<IAuthService>();
 
