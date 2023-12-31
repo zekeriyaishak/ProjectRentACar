@@ -38,4 +38,9 @@ public static class Messages
     public static string CarImageGetAll = "Araba resimleri gelmiştir";
     public static string CarImageUpdate = "Araba resimi güncellenmiştir";
     public static string CarImageLimitExceded = "En fazla bir arabaya 5 resim ekleyebilirsiniz";
+
+    public static string CustomerAdded = "Müşteri eklenmiştir";
+    public static string CustomerDeleted = "Müşteri Silinmiştir";
+    public static string CustomerListed = "Müşteriler listelenmiştir";
+    public static string CustomerUpdate = "Müşteriler Güncellenmiştir";
 }
