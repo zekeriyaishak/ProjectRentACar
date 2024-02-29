@@ -51,4 +51,6 @@ public static class Messages
     public static string RentCarNotDescription = "Aracın açıklaması boş geçilemez";
     public static string RentACarNotAvailable = "Araç belirtilen aralıkta uygun değil.";
     public static string RentACarAvailable = "Belirtilen tarihte araç durumu müsait";
+
+    public static string AuthorizationDenied = "Yetkiniz Yok!";
 }
