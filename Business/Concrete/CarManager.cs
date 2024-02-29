@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants.Messages;
 using Business.Validation.FluentValidation;
 using CorePackagesGeneral.Aspects.Autofac.Validation;
@@ -23,31 +24,38 @@ namespace Business.Concrete
         {
             _carDal = carDal;
         }
+
         [ValidationAspect(typeof(CarValidator))]
+        [SecuredOperation("Admin,Moderator")]
         public IResult AddCar(Car car)
         {
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
         }
 
+        [SecuredOperation("Admin,Moderator")]
         public IResult DeleteCar(Car car)
         {
             _carDal.Delete(car);
             return new SuccessResult(Messages.CarDeleted);
         }
 
+        [SecuredOperation("Admin,Moderator,NormalUser")]
         public IDataResult<List<Car>> GetAll()
         {
             var cars = _carDal.GetAll();
             return new SuccessDataResult<List<Car>>(cars, Messages.CarListed);
         }
 
+        [SecuredOperation("Admin,Moderator,NormalUser")]
         public IDataResult<List<Car>> GetAllByCarsId(int carId)
         {
             var car = _carDal.GetAll(x => x.Id == carId);
             return new SuccessDataResult<List<Car>>(car, Messages.CarListed);
         }
+
         [ValidationAspect(typeof(CarValidator))]
+        [SecuredOperation("Admin,Moderator")]
         public IResult UpdateCar(Car car)
         {
             _carDal.Update(car);
