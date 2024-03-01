@@ -8,10 +8,26 @@ using CorePackagesGeneral.Utilities.Security.JWT;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using CorePackagesGeneral.Utilities.Security.Encryption;
+using Microsoft.EntityFrameworkCore;
+using DataAccess.Concrete.EntityFramework;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var connection = String.Empty;
+if (builder.Environment.IsDevelopment())
+{
+    builder.Configuration.AddEnvironmentVariables().AddJsonFile("appsettings.Development.json");
+    connection = builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING");
+}
+else
+{
+    connection = Environment.GetEnvironmentVariable("AZURE_SQL_CONNECTIONSTRING");
+}
+
+builder.Services.AddDbContext<RentCarContext>(options =>
+    options.UseSqlServer(connection));
+
 
 builder.Services.AddControllers();
 builder.Services.AddCors();

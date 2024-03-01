@@ -11,10 +11,16 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class RentCarContext: DbContext
     {
+        public RentCarContext(DbContextOptions<RentCarContext> options)
+       : base(options)
+        {
+        }
+        public RentCarContext() { }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-SDKFJ6F;Initial Catalog=rent-a-car-prod;Integrated Security=True;Trusted_Connection=true;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("Server=tcp:babapro38.database.windows.net,1433;Initial Catalog=bacpac;Persist Security Info=False;User ID=rent-a-car-db;Password=123Hri.321hri;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         }
+
 
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Color> Colors { get; set; }
