@@ -27,7 +27,7 @@ namespace Business.Concrete
             _fileHelper = fileHelper;
         }
 
-        [SecuredOperation("Admin,Moderator")]
+        //[SecuredOperation("Admin,Moderator")]
         public IResult Add(IFormFile file, CarImage carImage)
         {
             carImage.ImagePath = _fileHelper.Upload(file, PathConstant.ImagesPath);
@@ -36,7 +36,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarImageAdded);
         }
 
-        [SecuredOperation("Admin,Moderator")]
+        //[SecuredOperation("Admin,Moderator")]
         public IResult Delete(CarImage carImage)
         {
             _fileHelper.Delete(PathConstant.ImagesPath + carImage.ImagePath);
@@ -44,25 +44,25 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-        [SecuredOperation("Admin,Moderator,NormalUser")]
+        //[SecuredOperation("Admin,Moderator,NormalUser")]
         public IDataResult<List<CarImage>> GetAll()
         {
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll());
         }
 
-        [SecuredOperation("Admin,Moderator,NormalUser")]
+        //[SecuredOperation("Admin,Moderator,NormalUser")]
         public IDataResult<List<CarImage>> GetByCarId(int carId)
         {
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(p => p.CarId == carId));
         }
 
-        [SecuredOperation("Admin,Moderator,NormalUser")]
+        //[SecuredOperation("Admin,Moderator,NormalUser")]
         public IDataResult<CarImage> GetImageByImageId(int imageId)
         {
             return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.Id == imageId));
         }
 
-        [SecuredOperation("Admin,Moderator")]
+        //[SecuredOperation("Admin,Moderator")]
         public IResult Update(IFormFile file, CarImage carImage)
         {
             carImage.ImagePath = _fileHelper.Update(file, PathConstant.ImagesPath + carImage.ImagePath, PathConstant.ImagesPath);
