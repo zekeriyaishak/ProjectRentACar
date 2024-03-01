@@ -15,13 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\ProjectCorePackages\CorePackagesGeneral\CorePackagesGeneral.csproj" />
     <ProjectReference Include="..\Entities\Entities.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="CorePackagesGeneral">
-      <HintPath>..\..\ProjectCorePackages\CorePackagesGeneral\bin\Debug\net7.0\CorePackagesGeneral.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>

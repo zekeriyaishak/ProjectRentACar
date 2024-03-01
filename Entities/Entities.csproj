@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="CorePackagesGeneral">
-      <HintPath>..\..\ProjectCorePackages\CorePackagesGeneral\bin\Debug\net7.0\CorePackagesGeneral.dll</HintPath>
-    </Reference>
+	  <ProjectReference Include="..\..\ProjectCorePackages\CorePackagesGeneral\CorePackagesGeneral.csproj" />
   </ItemGroup>
 
 </Project>
