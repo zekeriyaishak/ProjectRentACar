@@ -43,6 +43,12 @@ public class AutofacBusinessModule : Module
         builder.RegisterType<RentalManager>().As<IRentalService>().SingleInstance();
         builder.RegisterType<EfRentalDal>().As<IRentalDal>().SingleInstance();
 
+        builder.RegisterType<NewsManager>().As<INewsService>().SingleInstance();
+        builder.RegisterType<EfNewsDal>().As<INewsDal>().SingleInstance();
+
+        builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();
+        builder.RegisterType<EfCategoryDal>().As<ICategoryDal>().SingleInstance();
+
         builder.RegisterType<AuthManager>().As<IAuthService>();
 
 

@@ -52,5 +52,15 @@ public static class Messages
     public static string RentACarNotAvailable = "Araç belirtilen aralıkta uygun değil.";
     public static string RentACarAvailable = "Belirtilen tarihte araç durumu müsait";
 
+    public static string NewsAdded = "Kampanyalar eklenmiştir";
+    public static string NewsDeleted = "Kampanyalar Silinmiştir";
+    public static string NewsListed = "Kampanyalar listelenmiştir";
+    public static string NewsUpdate = "Kampanyalar Güncellenmiştir";
+
+    public static string CategoryAdded = "Kategori eklenmiştir";
+    public static string CategoryDeleted = "Kategori Silinmiştir";
+    public static string CategoryListed = "Kategori listelenmiştir";
+    public static string CategoryUpdate = "Kategori Güncellenmiştir";
+    public static string CategoryGetWithId = "İstenilen Kategori getirilmiştir";
     public static string AuthorizationDenied = "Yetkiniz Yok!";
 }
