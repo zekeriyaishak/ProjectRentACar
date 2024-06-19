@@ -88,11 +88,4 @@ public class RentalsController : BaseController
         }
         return BadRequest(result);
     }
-    [HttpGet("totalprice")]
-    public IActionResult TotalPrice(object totalAmountInfo)
-    {
-
-        return Ok();
-
-    }
 }
