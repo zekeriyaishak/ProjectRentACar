@@ -61,7 +61,7 @@ public class CarImagesController : BaseController
 
 
     [HttpPost("Delete")]
-    public IActionResult Delete([FromForm] CarImage carImage)
+    public IActionResult Delete(CarImage carImage)
     {
         var result = _carImagesService.Delete(carImage);
         if (result.Success)
