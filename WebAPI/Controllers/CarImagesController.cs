@@ -49,7 +49,7 @@ public class CarImagesController : BaseController
     }
 
     [HttpPost("Update")]
-    public IActionResult Update([FromForm] IFormFile file, CarImage carImage)
+    public IActionResult Update([FromForm] IFormFile file, [FromForm] CarImage carImage)
     {
         var result = _carImagesService.Update(file, carImage);
         if (result.Success)
@@ -61,7 +61,7 @@ public class CarImagesController : BaseController
 
 
     [HttpPost("Delete")]
-    public IActionResult Delete(CarImage carImage)
+    public IActionResult Delete([FromForm] CarImage carImage)
     {
         var result = _carImagesService.Delete(carImage);
         if (result.Success)
