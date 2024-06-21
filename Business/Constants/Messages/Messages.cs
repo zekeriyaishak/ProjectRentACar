@@ -63,4 +63,6 @@ public static class Messages
     public static string CategoryUpdate = "Kategori Güncellenmiştir";
     public static string CategoryGetWithId = "İstenilen Kategori getirilmiştir";
     public static string AuthorizationDenied = "Yetkiniz Yok!";
+
+    public static string CarDetailsSuccessMessage = "Araç başarılı listelenmiştir.";
 }

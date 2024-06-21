@@ -7,6 +7,7 @@ using CorePackagesGeneral.Utilities.Results.Abstract;
 using CorePackagesGeneral.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,6 +53,24 @@ namespace Business.Concrete
         {
             var car = _carDal.GetAll(x => x.Id == carId);
             return new SuccessDataResult<List<Car>>(car, Messages.CarListed);
+        }
+
+        public IDataResult<List<CarDetailsDto>> GetCarDetailByCarId(int carId)
+        {
+            var carDetailsByCarId = _carDal.GetCarDetails(x => x.CarId == carId);
+            return new SuccessDataResult<List<CarDetailsDto>>(carDetailsByCarId, Messages.CarDetailsSuccessMessage);
+        }
+
+        public IDataResult<List<CarDetailsDto>> GetCarDetails()
+        {
+            var carDetails = _carDal.GetCarDetails();
+            return new SuccessDataResult<List<CarDetailsDto>>(carDetails, Messages.CarDetailsSuccessMessage);
+        }
+
+        public IDataResult<List<CarDetailsDto>> GetCarDetailsByColorAndByBrand(int colorId, int brandId)
+        {
+            var carDetailsByColorAndBrandId = _carDal.GetCarDetails(x => x.BrandId == brandId && x.ColorId == colorId);
+            return new SuccessDataResult<List<CarDetailsDto>>(carDetailsByColorAndBrandId, Messages.CarDetailsSuccessMessage);
         }
 
         [ValidationAspect(typeof(CarValidator))]

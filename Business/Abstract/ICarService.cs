@@ -1,5 +1,6 @@
 ﻿using CorePackagesGeneral.Utilities.Results.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,9 @@ namespace Business.Abstract
         IResult DeleteCar(Car car);
 
         IDataResult<List<Car>> GetAllByCarsId(int carId);
+
+        IDataResult<List<CarDetailsDto>> GetCarDetails();
+        IDataResult<List<CarDetailsDto>> GetCarDetailsByColorAndByBrand(int colorId,int brandId);
+        IDataResult<List<CarDetailsDto>> GetCarDetailByCarId(int carId);
     }
 }
