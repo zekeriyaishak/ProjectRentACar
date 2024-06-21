@@ -70,4 +70,9 @@ public static class Messages
     public static string CreditCardDeleted = "Kredi Kartı silinmiştir";
     public static string CreditCardListed = "Kredi Kartı listelenmiştir";
     public static string CreditCardUpdate = "Kredi Kartı güncellenmiştir";
+
+    public static string PaymentAdded = "Payment eklenmiştir";
+    public static string PaymentDeleted = "Payment silinmiştir";
+    public static string PaymentListed = "Payment listelenmiştir";
+    public static string PaymentUpdate = "Payment güncellenmiştir";
 }
