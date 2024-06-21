@@ -65,4 +65,9 @@ public static class Messages
     public static string AuthorizationDenied = "Yetkiniz Yok!";
 
     public static string CarDetailsSuccessMessage = "Araç başarılı listelenmiştir.";
+
+    public static string CreditCardAdded = "Kredi Kartı eklenmiştir";
+    public static string CreditCardDeleted = "Kredi Kartı silinmiştir";
+    public static string CreditCardListed = "Kredi Kartı listelenmiştir";
+    public static string CreditCardUpdate = "Kredi Kartı güncellenmiştir";
 }

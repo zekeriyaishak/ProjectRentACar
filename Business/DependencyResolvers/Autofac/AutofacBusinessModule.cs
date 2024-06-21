@@ -49,6 +49,9 @@ public class AutofacBusinessModule : Module
         builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();
         builder.RegisterType<EfCategoryDal>().As<ICategoryDal>().SingleInstance();
 
+        builder.RegisterType<CreditCardManager>().As<ICreditCardService>().SingleInstance();
+        builder.RegisterType<EfCreditCardDal>().As<ICreditCardDal>().SingleInstance();
+
         builder.RegisterType<AuthManager>().As<IAuthService>();
 
 

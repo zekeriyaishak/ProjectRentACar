@@ -31,6 +31,7 @@ namespace DataAccess.Concrete.EntityFramework
         public DbSet<Rental> Rentals { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<CreditCard> CreditCards { get; set; }
 
     }
 }
