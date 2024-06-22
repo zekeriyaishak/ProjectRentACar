@@ -3,6 +3,7 @@ using Business.BusinessAspects.Autofac;
 using Business.Constants.Messages;
 using Business.Validation.FluentValidation;
 using CorePackagesGeneral.Aspects.Autofac.Validation;
+using CorePackagesGeneral.Aspects.Caching;
 using CorePackagesGeneral.Utilities.Results.Abstract;
 using CorePackagesGeneral.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -26,6 +27,7 @@ public class BrandManager : IBrandService
 
     [ValidationAspect(typeof(BrandValidator))]
     [SecuredOperation("Admin,Moderator")]
+    [CacheRemoveAspect("IBrandService.Get")]
     public IResult AddBrand(Brand brand)
     {
         _brandDal.Add(brand);
@@ -33,6 +35,7 @@ public class BrandManager : IBrandService
     }
 
     [SecuredOperation("Admin,Moderator")]
+    [CacheRemoveAspect("IBrandService.Get")]
     public IResult DeleteBrand(Brand brand)
     {
         _brandDal.Delete(brand);
@@ -40,12 +43,14 @@ public class BrandManager : IBrandService
     }
 
     [SecuredOperation("Admin,Moderator,NormalUser")]
+    [CacheAspect]
     public IDataResult<List<Brand>> GetAll()
     {
         return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(),Messages.BrandListed);
     }
 
     [SecuredOperation("Admin,Moderator,NormalUser")]
+    [CacheAspect]
     public IDataResult<List<Brand>> GetAllByBrandsId(int brandId)
     {
         return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(p => p.Id == brandId),Messages.BrandListed);
@@ -53,6 +58,7 @@ public class BrandManager : IBrandService
 
     [ValidationAspect(typeof(BrandValidator))]
     [SecuredOperation("Admin,Moderator")]
+    [CacheRemoveAspect("IBrandService.Get")]
     public IResult UpdateBrand(Brand brand)
     {
         _brandDal.Update(brand);
