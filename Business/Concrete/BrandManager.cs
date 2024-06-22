@@ -4,6 +4,8 @@ using Business.Constants.Messages;
 using Business.Validation.FluentValidation;
 using CorePackagesGeneral.Aspects.Autofac.Validation;
 using CorePackagesGeneral.Aspects.Caching;
+using CorePackagesGeneral.Aspects.Performance;
+using CorePackagesGeneral.Aspects.Transaction;
 using CorePackagesGeneral.Utilities.Results.Abstract;
 using CorePackagesGeneral.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -28,8 +30,21 @@ public class BrandManager : IBrandService
     [ValidationAspect(typeof(BrandValidator))]
     [SecuredOperation("Admin,Moderator")]
     [CacheRemoveAspect("IBrandService.Get")]
+    [PerformanceAspect(5)]
     public IResult AddBrand(Brand brand)
     {
+        _brandDal.Add(brand);
+        return new SuccessResult(Messages.BrandAdded);
+    }
+    //Burası Transaction için test metodu.
+    [TransactionScopeAspect]
+    public IResult AddTransactionalBrand(Brand brand)
+    {
+        _brandDal.Add(brand);
+        if (brand.BrandName.Length > 3)
+        {
+            throw new Exception(" 3 ten büyük!");
+        }
         _brandDal.Add(brand);
         return new SuccessResult(Messages.BrandAdded);
     }
@@ -44,6 +59,7 @@ public class BrandManager : IBrandService
 
     [SecuredOperation("Admin,Moderator,NormalUser")]
     [CacheAspect]
+    [PerformanceAspect(5)]
     public IDataResult<List<Brand>> GetAll()
     {
         return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(),Messages.BrandListed);

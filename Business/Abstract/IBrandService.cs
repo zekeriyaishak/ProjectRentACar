@@ -16,4 +16,5 @@ public interface IBrandService
     IResult DeleteBrand(Brand brand);
 
     IDataResult<List<Brand>> GetAllByBrandsId(int brandId);
+    IResult AddTransactionalBrand(Brand brand);
 }

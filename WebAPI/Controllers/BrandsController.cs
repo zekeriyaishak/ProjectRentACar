@@ -73,6 +73,15 @@ public class BrandsController : BaseController
         }
         return BadRequest(result);
     }
-
+    [HttpPost("AddBrandTransactionTest")]
+    public IActionResult TestTransactionScope(Brand brand)
+    {
+        var result = _brandService.AddTransactionalBrand(brand);
+        if (result.Success)
+        {
+            return Ok(result);
+        }
+        return BadRequest(result);  
+    }
 }
 
