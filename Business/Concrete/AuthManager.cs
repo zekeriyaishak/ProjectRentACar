@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants.Messages;
+using CorePackagesGeneral.Aspects.Performance;
+using CorePackagesGeneral.Aspects.Transaction;
 using CorePackagesGeneral.Entities.Concrete;
 using CorePackagesGeneral.Utilities.Results.Abstract;
 using CorePackagesGeneral.Utilities.Results.Concrete;
@@ -33,6 +35,7 @@ namespace Business.Concrete
         }
         //loglama yapısı kurayım.
         // metric- 
+        [PerformanceAspect(15)]
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
         {
             var userToCheck = _userService.GetByMail(userForLoginDto.Email);
@@ -48,7 +51,7 @@ namespace Business.Concrete
 
             return new SuccessDataResult<User>(userToCheck, Messages.SuccessfulLogin);
         }
-
+        [PerformanceAspect(15)]
         public IDataResult<User> Register(UserForRegisterDto userForRegisterDto)
         {
             byte[] passwordHash, passwordSalt;

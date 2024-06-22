@@ -2,6 +2,8 @@
 using Business.BusinessAspects.Autofac;
 using Business.Constants.Messages;
 using CorePackagesGeneral.Aspects.Caching;
+using CorePackagesGeneral.Aspects.Performance;
+using CorePackagesGeneral.Aspects.Transaction;
 using CorePackagesGeneral.Utilities.Results.Abstract;
 using CorePackagesGeneral.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -25,6 +27,8 @@ namespace Business.Concrete
 
         [SecuredOperation("Admin,Moderator")]
         [CacheRemoveAspect("ICategoryService.Get")]
+        [PerformanceAspect(6)]
+        [TransactionScopeAspect]
         public IResult AddCategory(Category category)
         {
             _categoryDal.Add(category);
@@ -33,6 +37,8 @@ namespace Business.Concrete
 
         [SecuredOperation("Admin,Moderator")]
         [CacheRemoveAspect("ICategoryService.Get")]
+        [PerformanceAspect(6)]
+        [TransactionScopeAspect]
         public IResult DeleteCategory(Category category)
         {
             _categoryDal.Delete(category);
@@ -41,6 +47,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Admin,Moderator,NormalUser")]
         [CacheAspect]
+        [PerformanceAspect(6)]
         public IDataResult<List<Category>> GetAll()
         {
             return new SuccessDataResult<List<Category>>(_categoryDal.GetAll(),Messages.CategoryListed);
@@ -48,6 +55,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Admin,Moderator,NormalUser")]
         [CacheAspect]
+        [PerformanceAspect(6)]
         public IDataResult<List<Category>> GetAllByCategoriesId(int categoryId)
         {
             return new SuccessDataResult<List<Category>>(_categoryDal.GetAll(x => x.Id == categoryId),Messages.CategoryGetWithId);
@@ -55,6 +63,8 @@ namespace Business.Concrete
 
         [SecuredOperation("Admin,Moderator")]
         [CacheRemoveAspect("ICategoryService.Get")]
+        [PerformanceAspect(6)]
+        [TransactionScopeAspect]
         public IResult UpdateCategory(Category category)
         {
             _categoryDal.Update(category);

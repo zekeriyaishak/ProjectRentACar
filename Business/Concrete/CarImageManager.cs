@@ -3,6 +3,9 @@ using Business.BusinessAspects.Autofac;
 using Business.Constants.Messages;
 using Business.Constants.PathConstant;
 using CorePackagesGeneral.Aspects.Caching;
+using CorePackagesGeneral.Aspects.Performance;
+using CorePackagesGeneral.Aspects.Transaction;
+using CorePackagesGeneral.Utilities.Business;
 using CorePackagesGeneral.Utilities.Helpers.FileHelper.Abstract;
 using CorePackagesGeneral.Utilities.Results.Abstract;
 using CorePackagesGeneral.Utilities.Results.Concrete;
@@ -30,8 +33,14 @@ namespace Business.Concrete
 
         [SecuredOperation("Admin,Moderator")]
         [CacheRemoveAspect("ICarImageService.Get")]
+        [PerformanceAspect(10)]
+        [TransactionScopeAspect]
         public IResult Add(IFormFile file, CarImage carImage)
         {
+            IResult result = BusinessRules.Run(CheckIfImageLimit(carImage.CarId));
+            if (result != null)
+                return new ErrorResult(Messages.RentACarNotAvailable);
+            
             carImage.ImagePath = _fileHelper.Upload(file, PathConstant.ImagesPath);
             carImage.CreatedDate = DateTime.Now;
             _carImageDal.Add(carImage);
@@ -40,6 +49,8 @@ namespace Business.Concrete
 
         [SecuredOperation("Admin,Moderator")]
         [CacheRemoveAspect("ICarImageService.Get")]
+        [PerformanceAspect(10)]
+        [TransactionScopeAspect]
         public IResult Delete(CarImage carImage)
         {
             _fileHelper.Delete(PathConstant.ImagesPath + carImage.ImagePath);
@@ -49,6 +60,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Admin,Moderator,NormalUser")]
         [CacheAspect]
+        [PerformanceAspect(10)]
         public IDataResult<List<CarImage>> GetAll()
         {
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll());
@@ -56,6 +68,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Admin,Moderator,NormalUser")]
         [CacheAspect]
+        [PerformanceAspect(10)]
         public IDataResult<List<CarImage>> GetByCarId(int carId)
         {
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(p => p.CarId == carId));
@@ -63,6 +76,7 @@ namespace Business.Concrete
 
         [SecuredOperation("Admin,Moderator,NormalUser")]
         [CacheAspect]
+        [PerformanceAspect(10)]
         public IDataResult<CarImage> GetImageByImageId(int imageId)
         {
             return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.Id == imageId));
@@ -70,6 +84,8 @@ namespace Business.Concrete
 
         [SecuredOperation("Admin,Moderator")]
         [CacheRemoveAspect("ICarImageService.Get")]
+        [PerformanceAspect(10)]
+        [TransactionScopeAspect]
         public IResult Update(IFormFile file, CarImage carImage)
         {
             carImage.ImagePath = _fileHelper.Update(file, PathConstant.ImagesPath + carImage.ImagePath, PathConstant.ImagesPath);
@@ -80,15 +96,12 @@ namespace Business.Concrete
         private IResult CheckIfImageLimit(int carId)
         {
             var result = _carImageDal.GetAll(c => c.Id == carId).Count;
-
             if (result >= 5)
-            {
-                return new ErrorResult();
-            }
+                return new ErrorResult(Messages.CarImageLimitExceded);
 
             return new SuccessResult();
         }
-
+        //for FE- If there is no photo of the car, let the default photo appear.
         private IDataResult<List<CarImage>> GetDefaultImage(int carId)
         {
             List<CarImage> carImages = new List<CarImage>();

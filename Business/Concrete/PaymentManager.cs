@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants.Messages;
+using CorePackagesGeneral.Aspects.Performance;
+using CorePackagesGeneral.Aspects.Transaction;
 using CorePackagesGeneral.Utilities.Results.Abstract;
 using CorePackagesGeneral.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -21,12 +23,16 @@ public class PaymentManager:IPaymentService
         _paymentDal = paymentDal;
     }
     [SecuredOperation("Admin,Moderator,NormalUser")]
+    [PerformanceAspect(15)]
+    [TransactionScopeAspect]
     public IResult Add(Payment payment)
     {
         _paymentDal.Add(payment);
         return new SuccessResult(Messages.PaymentAdded);
     }
     [SecuredOperation("Admin,Moderator,NormalUser")]
+    [PerformanceAspect(15)]
+    [TransactionScopeAspect]
     public IResult Delete(Payment payment)
     {
         _paymentDal.Delete(payment);
@@ -34,18 +40,22 @@ public class PaymentManager:IPaymentService
     }
 
     [SecuredOperation("Admin,Moderator,NormalUser")]
+    [PerformanceAspect(15)]
     public IDataResult<List<Payment>> GetAll()
     {
         var getAll = _paymentDal.GetAll();
         return new SuccessDataResult<List<Payment>>(getAll,Messages.PaymentListed);
     }
     [SecuredOperation("Admin,Moderator,NormalUser")]
+    [PerformanceAspect(15)]
     public IDataResult<Payment> GetByPaymentId(int paymentId)
     {
         var getPaymentId = _paymentDal.Get(x => x.Id == paymentId);
         return new SuccessDataResult<Payment>(getPaymentId,Messages.PaymentListed);
     }
     [SecuredOperation("Admin,Moderator,NormalUser")]
+    [PerformanceAspect(15)]
+    [TransactionScopeAspect]
     public IResult Update(Payment payment)
     {
         _paymentDal.Update(payment);

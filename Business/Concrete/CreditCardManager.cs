@@ -4,6 +4,8 @@ using Business.Constants.Messages;
 using Business.Validation.FluentValidation;
 using CorePackagesGeneral.Aspects.Autofac.Validation;
 using CorePackagesGeneral.Aspects.Caching;
+using CorePackagesGeneral.Aspects.Performance;
+using CorePackagesGeneral.Aspects.Transaction;
 using CorePackagesGeneral.Utilities.Results.Abstract;
 using CorePackagesGeneral.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -27,6 +29,8 @@ public class CreditCardManager: ICreditCardService
     [ValidationAspect(typeof(CreditCardValidator))]
     [SecuredOperation("Admin,Moderator")]
     [CacheRemoveAspect("ICreditCardService.Get")]
+    [PerformanceAspect(6)]
+    [TransactionScopeAspect]
     public IResult Add(CreditCard card)
     {
         _creditCardDal.Add(card);
@@ -36,6 +40,8 @@ public class CreditCardManager: ICreditCardService
     [ValidationAspect(typeof(CreditCardValidator))]
     [SecuredOperation("Admin,Moderator")]
     [CacheRemoveAspect("ICreditCardService.Get")]
+    [PerformanceAspect(6)]
+    [TransactionScopeAspect]
     public IResult Delete(CreditCard card)
     {
         _creditCardDal.Delete(card);
@@ -61,6 +67,8 @@ public class CreditCardManager: ICreditCardService
     [ValidationAspect(typeof(CreditCardValidator))]
     [SecuredOperation("Admin,Moderator")]
     [CacheRemoveAspect("ICreditCardService.Get")]
+    [PerformanceAspect(6)]
+    [TransactionScopeAspect]
     public IResult Update(CreditCard card)
     {
         _creditCardDal.Update(card);
