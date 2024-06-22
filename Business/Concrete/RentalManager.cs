@@ -26,7 +26,7 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        //[SecuredOperation("Admin,Moderator,NormalUser")]
+        [SecuredOperation("Admin,Moderator,NormalUser")]
         public IResult AddRental(Rental car)
         {
             _rentalDal.Add(car);
@@ -49,32 +49,32 @@ namespace Business.Concrete
             return totalAmount;
         }
 
-        //[SecuredOperation("Admin,Moderator,NormalUser")]
+        [SecuredOperation("Admin,Moderator,NormalUser")]
         public IResult DeleteRental(Rental car)
         {
             _rentalDal.Delete(car);
             return new SuccessResult(Messages.RentAlDeleted);
         }
 
-        //[SecuredOperation("Admin,Moderator,NormalUser")]
+        [SecuredOperation("Admin,Moderator,NormalUser")]
         public IDataResult<List<Rental>> GetAll()
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.RentAlListed);
         }
 
-        //[SecuredOperation("Admin,Moderator,NormalUser")]
+        [SecuredOperation("Admin,Moderator,NormalUser")]
         public IDataResult<List<Rental>> GetById(int rentalId)
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(r => r.Id == rentalId));
         }
 
-        //[SecuredOperation("Admin,Moderator,NormalUser")]
+        [SecuredOperation("Admin,Moderator,NormalUser")]
         public IDataResult<List<RentalDetailsDto>> GetRentalDetails()
         {
             return new SuccessDataResult<List<RentalDetailsDto>>(_rentalDal.GetRentalDetails());
         }
 
-        //[SecuredOperation("Admin,Moderator,NormalUser")]
+        [SecuredOperation("Admin,Moderator,NormalUser")]
         public IResult IsCarAvaible(int carId)
         {
             IResult result = BusinessRules.Run(IsCarAvaibleForRent(carId));
@@ -85,7 +85,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.RentACarAvailable);
         }
 
-        //[SecuredOperation("Admin,Moderator,NormalUser")]
+        [SecuredOperation("Admin,Moderator,NormalUser")]
         public IResult UpdateRental(Rental car)
         {
             _rentalDal.Update(car);

@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants.Messages;
 using Business.Validation.FluentValidation;
 using CorePackagesGeneral.Aspects.Autofac.Validation;
@@ -23,6 +24,7 @@ public class CreditCardManager: ICreditCardService
     }
 
     [ValidationAspect(typeof(CreditCardValidator))]
+    [SecuredOperation("Admin,Moderator")]
     public IResult Add(CreditCard card)
     {
         _creditCardDal.Add(card);
@@ -30,18 +32,21 @@ public class CreditCardManager: ICreditCardService
     }
 
     [ValidationAspect(typeof(CreditCardValidator))]
+    [SecuredOperation("Admin,Moderator")]
     public IResult Delete(CreditCard card)
     {
         _creditCardDal.Delete(card);
         return new SuccessResult(Messages.CreditCardDeleted);
     }
 
+    [SecuredOperation("Admin,Moderator,NormalUser")]
     public IDataResult<List<CreditCard>> GetAll()
     {
         var getAllCreditCard = _creditCardDal.GetAll();
         return new SuccessDataResult<List<CreditCard>>(getAllCreditCard,Messages.CreditCardListed);
     }
 
+    [SecuredOperation("Admin,Moderator,NormalUser")]
     public IDataResult<CreditCard> GetByCarId(int carId)
     {
         var getByAllCreditCard = _creditCardDal.Get(x=>x.CarId == carId);
@@ -49,6 +54,7 @@ public class CreditCardManager: ICreditCardService
     }
 
     [ValidationAspect(typeof(CreditCardValidator))]
+    [SecuredOperation("Admin,Moderator")]
     public IResult Update(CreditCard card)
     {
         _creditCardDal.Update(card);
