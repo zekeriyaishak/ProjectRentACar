@@ -2,6 +2,7 @@
 using Business.BusinessAspects.Autofac;
 using Business.Constants.Messages;
 using Business.Constants.PathConstant;
+using CorePackagesGeneral.Aspects.Caching;
 using CorePackagesGeneral.Utilities.Helpers.FileHelper.Abstract;
 using CorePackagesGeneral.Utilities.Results.Abstract;
 using CorePackagesGeneral.Utilities.Results.Concrete;
@@ -28,6 +29,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Admin,Moderator")]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Add(IFormFile file, CarImage carImage)
         {
             carImage.ImagePath = _fileHelper.Upload(file, PathConstant.ImagesPath);
@@ -37,6 +39,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Admin,Moderator")]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Delete(CarImage carImage)
         {
             _fileHelper.Delete(PathConstant.ImagesPath + carImage.ImagePath);
@@ -45,24 +48,28 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Admin,Moderator,NormalUser")]
+        [CacheAspect]
         public IDataResult<List<CarImage>> GetAll()
         {
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll());
         }
 
         [SecuredOperation("Admin,Moderator,NormalUser")]
+        [CacheAspect]
         public IDataResult<List<CarImage>> GetByCarId(int carId)
         {
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(p => p.CarId == carId));
         }
 
         [SecuredOperation("Admin,Moderator,NormalUser")]
+        [CacheAspect]
         public IDataResult<CarImage> GetImageByImageId(int imageId)
         {
             return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.Id == imageId));
         }
 
         [SecuredOperation("Admin,Moderator")]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Update(IFormFile file, CarImage carImage)
         {
             carImage.ImagePath = _fileHelper.Update(file, PathConstant.ImagesPath + carImage.ImagePath, PathConstant.ImagesPath);

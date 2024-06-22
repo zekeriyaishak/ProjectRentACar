@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants.Messages;
+using CorePackagesGeneral.Aspects.Caching;
 using CorePackagesGeneral.Utilities.Results.Abstract;
 using CorePackagesGeneral.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -24,6 +25,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Admin,Moderator")]
+        [CacheRemoveAspect("INewsService.Get")]
         public IResult AddNews(News news)
         {
             _newsDal.Add(news);
@@ -31,6 +33,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Admin,Moderator")]
+        [CacheRemoveAspect("INewsService.Get")]
         public IResult DeleteNews(News news)
         {
             _newsDal.Delete(news);
@@ -38,18 +41,21 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Admin,Moderator,NormalUser")]
+        [CacheAspect]
         public IDataResult<List<News>> GetAll()
         {
             return new SuccessDataResult<List<News>>(_newsDal.GetAll(),Messages.NewsListed);
         }
 
         [SecuredOperation("Admin,Moderator,NormalUser")]
+        [CacheAspect]
         public IDataResult<List<News>> GetAllByNewsId(int newsId)
         {
             return new SuccessDataResult<List<News>>(_newsDal.GetAll(p => p.Id == newsId));
         }
 
         [SecuredOperation("Admin,Moderator")]
+        [CacheRemoveAspect("INewsService.Get")]
         public IResult UpdateNews(News news)
         {
             _newsDal.Update(news);

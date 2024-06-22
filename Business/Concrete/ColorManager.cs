@@ -3,6 +3,7 @@ using Business.BusinessAspects.Autofac;
 using Business.Constants.Messages;
 using Business.Validation.FluentValidation;
 using CorePackagesGeneral.Aspects.Autofac.Validation;
+using CorePackagesGeneral.Aspects.Caching;
 using CorePackagesGeneral.Utilities.Results.Abstract;
 using CorePackagesGeneral.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -25,6 +26,7 @@ namespace Business.Concrete
         }
         [ValidationAspect(typeof(ColorValidator))]
         [SecuredOperation("Admin,Moderator")]
+        [CacheRemoveAspect("IColorService.Get")]
         public IResult AddColor(Color color)
         {
             _colorDal.Add(color);
@@ -32,6 +34,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Admin,Moderator")]
+        [CacheRemoveAspect("IColorService.Get")]
         public IResult DeleteColor(Color color)
         {
             _colorDal.Delete(color);
@@ -39,12 +42,14 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Admin,Moderator,NormalUser")]
+        [CacheAspect]
         public IDataResult<List<Color>> GetAll()
         {
             return new SuccessDataResult<List<Color>>(_colorDal.GetAll());
         }
 
         [SecuredOperation("Admin,Moderator,NormalUser")]
+        [CacheAspect]
         public IDataResult<List<Color>> GetAllByColorsId(int colorId)
         {
             return new SuccessDataResult<List<Color>>(_colorDal.GetAll(p=>p.Id==colorId));
@@ -52,6 +57,7 @@ namespace Business.Concrete
 
         [ValidationAspect(typeof(ColorValidator))]
         [SecuredOperation("Admin,Moderator")]
+        [CacheRemoveAspect("IColorService.Get")]
         public IResult UpdateColor(Color color)
         {
             _colorDal.Update(color);

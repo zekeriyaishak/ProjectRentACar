@@ -3,6 +3,7 @@ using Business.BusinessAspects.Autofac;
 using Business.Constants.Messages;
 using Business.Validation.FluentValidation;
 using CorePackagesGeneral.Aspects.Autofac.Validation;
+using CorePackagesGeneral.Aspects.Caching;
 using CorePackagesGeneral.Utilities.Results.Abstract;
 using CorePackagesGeneral.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -25,6 +26,7 @@ public class CreditCardManager: ICreditCardService
 
     [ValidationAspect(typeof(CreditCardValidator))]
     [SecuredOperation("Admin,Moderator")]
+    [CacheRemoveAspect("ICreditCardService.Get")]
     public IResult Add(CreditCard card)
     {
         _creditCardDal.Add(card);
@@ -33,6 +35,7 @@ public class CreditCardManager: ICreditCardService
 
     [ValidationAspect(typeof(CreditCardValidator))]
     [SecuredOperation("Admin,Moderator")]
+    [CacheRemoveAspect("ICreditCardService.Get")]
     public IResult Delete(CreditCard card)
     {
         _creditCardDal.Delete(card);
@@ -40,6 +43,7 @@ public class CreditCardManager: ICreditCardService
     }
 
     [SecuredOperation("Admin,Moderator,NormalUser")]
+    [CacheAspect]
     public IDataResult<List<CreditCard>> GetAll()
     {
         var getAllCreditCard = _creditCardDal.GetAll();
@@ -47,6 +51,7 @@ public class CreditCardManager: ICreditCardService
     }
 
     [SecuredOperation("Admin,Moderator,NormalUser")]
+    [CacheAspect]
     public IDataResult<CreditCard> GetByCarId(int carId)
     {
         var getByAllCreditCard = _creditCardDal.Get(x=>x.CarId == carId);
@@ -55,6 +60,7 @@ public class CreditCardManager: ICreditCardService
 
     [ValidationAspect(typeof(CreditCardValidator))]
     [SecuredOperation("Admin,Moderator")]
+    [CacheRemoveAspect("ICreditCardService.Get")]
     public IResult Update(CreditCard card)
     {
         _creditCardDal.Update(card);

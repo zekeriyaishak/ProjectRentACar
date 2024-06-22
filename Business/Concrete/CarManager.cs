@@ -3,6 +3,7 @@ using Business.BusinessAspects.Autofac;
 using Business.Constants.Messages;
 using Business.Validation.FluentValidation;
 using CorePackagesGeneral.Aspects.Autofac.Validation;
+using CorePackagesGeneral.Aspects.Caching;
 using CorePackagesGeneral.Utilities.Results.Abstract;
 using CorePackagesGeneral.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -28,6 +29,7 @@ namespace Business.Concrete
 
         [ValidationAspect(typeof(CarValidator))]
         [SecuredOperation("Admin,Moderator")]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult AddCar(Car car)
         {
             _carDal.Add(car);
@@ -35,6 +37,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Admin,Moderator")]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult DeleteCar(Car car)
         {
             _carDal.Delete(car);
@@ -42,6 +45,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Admin,Moderator,NormalUser")]
+        [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
             var cars = _carDal.GetAll();
@@ -49,6 +53,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Admin,Moderator,NormalUser")]
+        [CacheAspect]
         public IDataResult<List<Car>> GetAllByCarsId(int carId)
         {
             var car = _carDal.GetAll(x => x.Id == carId);
@@ -56,6 +61,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Admin,Moderator,NormalUser")]
+        [CacheAspect]
         public IDataResult<List<CarDetailsDto>> GetCarDetailByCarId(int carId)
         {
             var carDetailsByCarId = _carDal.GetCarDetails(x => x.CarId == carId);
@@ -63,6 +69,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Admin,Moderator,NormalUser")]
+        [CacheAspect]
         public IDataResult<List<CarDetailsDto>> GetCarDetails()
         {
             var carDetails = _carDal.GetCarDetails();
@@ -70,6 +77,7 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("Admin,Moderator,NormalUser")]
+        [CacheAspect]
         public IDataResult<List<CarDetailsDto>> GetCarDetailsByColorAndByBrand(int colorId, int brandId)
         {
             var carDetailsByColorAndBrandId = _carDal.GetCarDetails(x => x.BrandId == brandId && x.ColorId == colorId);
@@ -78,6 +86,7 @@ namespace Business.Concrete
 
         [ValidationAspect(typeof(CarValidator))]
         [SecuredOperation("Admin,Moderator")]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult UpdateCar(Car car)
         {
             _carDal.Update(car);
