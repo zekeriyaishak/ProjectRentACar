@@ -10,7 +10,8 @@ public class CreditCardsController : BaseController
 {
     ICreditCardService _creditCardService;
 
-    public CreditCardsController(ICreditCardService creditCardService)
+    public CreditCardsController(ICreditCardService creditCardService, ILogger<CreditCardsController> logger)
+        :base(logger)
     {
         _creditCardService = creditCardService;
     }

@@ -11,7 +11,8 @@ public class UsersController : BaseController
 {
     IUserService _userService;
 
-    public UsersController(IUserService userService)
+    public UsersController(IUserService userService, ILogger<UsersController> logger)
+        :base(logger)
     {
         _userService = userService;
     }

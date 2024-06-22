@@ -11,7 +11,8 @@ namespace WebAPI.Controllers
     {
         IColorService _modelService;
 
-        public ColorsController(IColorService modelService)
+        public ColorsController(IColorService modelService, ILogger<ColorsController> logger)
+            :base(logger) 
         {
             _modelService = modelService;
         }

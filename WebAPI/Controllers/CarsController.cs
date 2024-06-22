@@ -11,7 +11,8 @@ namespace WebAPI.Controllers
     {
         ICarService _carService;
 
-        public CarsController(ICarService carService)
+        public CarsController(ICarService carService, ILogger<CarsController> logger)
+            :base(logger)
         {
             _carService = carService;
         }

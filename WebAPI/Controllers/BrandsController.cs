@@ -11,18 +11,22 @@ public class BrandsController : BaseController
 {
     IBrandService _brandService;
 
-    public BrandsController(IBrandService brandService)
+    public BrandsController(IBrandService brandService, ILogger<BrandsController> logger)
+        : base(logger)
     {
         _brandService = brandService;
     }
     [HttpPost("add")]
     public IActionResult Add(Brand brand)
     {
+        LogInformation("BrandsController Add method called.");
         var result = _brandService.AddBrand(brand);
         if (result.Success)
         {
+            LogInformation($"Brand added successfully: {brand.BrandName}");
             return Ok(result);
         }
+        LogError(new Exception(result.Message));
         return BadRequest(result);
     }
     [HttpDelete("delete")]
@@ -38,11 +42,14 @@ public class BrandsController : BaseController
     [HttpGet("getall")]
     public IActionResult GetAll()
     {
+        LogInformation("BrandsController getAll method called.");
         var result = _brandService.GetAll();
         if (result.Success)
         {
+            LogInformation($"Brand getall successfully");
             return Ok(result);
         }
+        LogError(new Exception(result.Message));
         return BadRequest(result);
     }
     [HttpPatch("update")]

@@ -11,7 +11,8 @@ public class PaymentsController : BaseController
 {
     IPaymentService _paymentService;
 
-    public PaymentsController(IPaymentService paymentService)
+    public PaymentsController(IPaymentService paymentService, ILogger<PaymentsController> logger)
+        :base(logger)
     {
         _paymentService = paymentService;
     }

@@ -11,7 +11,8 @@ public class RentalsController : BaseController
 {
     IRentalService _rentalService;
 
-    public RentalsController(IRentalService rentalService)
+    public RentalsController(IRentalService rentalService, ILogger<RentalsController> logger)
+        :base(logger)
     {
         _rentalService = rentalService;
     }

@@ -11,7 +11,8 @@ namespace WebAPI.Controllers
     {
         ICategoryService _categoryService;
 
-        public CategoryController(ICategoryService categoryService)
+        public CategoryController(ICategoryService categoryService, ILogger<CategoryController> logger)
+            :base(logger)
         {
             _categoryService = categoryService;
         }

@@ -11,7 +11,8 @@ namespace WebAPI.Controllers
     {
         INewsService _newsService;
 
-        public NewsController(INewsService newsService)
+        public NewsController(INewsService newsService, ILogger<NewsController> logger)
+            :base(logger)
         {
             _newsService = newsService;
         }

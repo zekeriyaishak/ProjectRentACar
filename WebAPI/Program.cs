@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using DataAccess.Concrete.EntityFramework;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddLogging();
 // Add services to the container.
 var connection = String.Empty;
 if (builder.Environment.IsDevelopment())

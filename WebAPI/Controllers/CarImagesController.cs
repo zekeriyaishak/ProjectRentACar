@@ -11,7 +11,8 @@ public class CarImagesController : BaseController
 {
     ICarImageService _carImagesService;
 
-    public CarImagesController(ICarImageService carImagesService)
+    public CarImagesController(ICarImageService carImagesService, ILogger<CarImagesController> logger)
+        :base(logger)
     {
         _carImagesService = carImagesService;
     }
