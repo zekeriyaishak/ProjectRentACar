@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - 'master'
- 
+
 permissions:
   id-token: write
   # for writing security events.
@@ -11,7 +11,7 @@ permissions:
   # only required for workflows in private repositories
   actions: read
   contents: read
- 
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,14 +20,14 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
- 
+
       - name: Configure aws credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: arn:aws:iam::856981460310:role/CodeGuruSecurityGitHubAccessRole
           aws-region: eu-north-1
           role-session-name: GitHubActionScript
- 
+
       - name: CodeGuru Security
         uses: aws-actions/codeguru-security@v1
         with:
@@ -38,7 +38,7 @@ jobs:
         run: |
           ls -l
           cat codeguru-security-results.sarif.json
- 
+
       # If you want content in security scanning, you’ll need to enable codescanning by going into github.
       # https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning-for-a-repository
       - name: Upload result
