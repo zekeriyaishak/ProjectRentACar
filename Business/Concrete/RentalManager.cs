@@ -85,9 +85,9 @@ namespace Business.Concrete
 
         [SecuredOperation("Admin,Moderator,NormalUser")]
         [PerformanceAspect(15)]
-        public IResult IsCarAvaible(int carId)
+        public IResult IsCarAvaible(int carId, DateTime startDate, DateTime endDate)
         {
-            IResult result = BusinessRules.Run(IsCarAvaibleForRent(carId));
+            IResult result = BusinessRules.Run(IsCarAvaibleForRent(carId,startDate,endDate));
             if (result != null)
             {
                 return new ErrorResult(Messages.RentACarNotAvailable);
@@ -104,9 +104,9 @@ namespace Business.Concrete
             return new SuccessResult(Messages.RentAlUptaded);
         }
 
-        private IResult IsCarAvaibleForRent(int carId)
+        private IResult IsCarAvaibleForRent(int carId, DateTime startDate, DateTime endDate)
         {
-            var result = _rentalDal.GetAll(r => r.CarId == carId).Any();
+            var result = _rentalDal.GetAll(r => r.CarId == carId && r.CreatedDate > startDate && r.CreatedDate < endDate).Any();
             if (result)
             {
                 return new ErrorResult();
