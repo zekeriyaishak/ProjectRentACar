@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Business.Concrete
@@ -53,11 +54,6 @@ namespace Business.Concrete
             _userDal.Update(user);
             return new SuccessResult(Messages.UserUpdate);
         }
- public class Credentials
-        {
-            private string FirstName = "zekeriya ishak";
-            private string password = "password";
-        }
         public void UnsafeSqlQuery(string userInput)
         {
             var connectionString = "Data Source=DESKTOP-SDKFJ6F;Initial Catalog=rent-a-car-prod;Integrated Security=True;Trusted_Connection=true;TrustServerCertificate=True";
@@ -71,42 +67,102 @@ namespace Business.Concrete
                 }
             }
         }
+        public string GetApiKey()
+        {
+            // Hardcoded API key, güvenlik açığına yol açabilir
+            return "12345-ABCDE-SECRET-KEY";
+        }
+        public string RenderHtml(string userInput)
+        {
+            // Kullanıcı girdisini doğrudan HTML içinde render ediyor
+            return $"<div>Merhaba, {userInput}</div>";
+        }
+        public void SqlInjection(string username, string password)
+        {
+            string query = $"SELECT * FROM Users WHERE Username = '{username}' AND Password = '{password}'"; // Güvensiz
+            Console.WriteLine("SQL Query: " + query);
+        }
 
-        public void InefficientLoop()
+        public void CrossSiteScripting(string userInput)
         {
-            List<int> numbers = new List<int>();
-            for (int i = 0; i < 100000; i++)
-            {
-                numbers.Add(i);
-            }
+            Console.WriteLine("Welcome, " + userInput); // Güvensiz: HTML veya JavaScript çalıştırılabilir
+        }
 
-            foreach (int number in numbers)
-            {
-                for (int i = 0; i < numbers.Count; i++) // İç içe döngü performans sorunlarına yol açabilir
-                {
-                    if (numbers[i] == number)
-                    {
-                        Console.WriteLine("Found: " + number);
-                    }
-                }
-            }
-        }
-        public void SendSensitiveData()
+        public void CommandInjection(string userInput)
         {
-            var sensitiveData = "creditCardNumber=1234-5678-9012-3456";
-            using (var client = new HttpClient())
-            {
-                var content = new StringContent(sensitiveData);
-                client.PostAsync("http://example.com", content); // HTTPS yerine HTTP kullanılıyor
-            }
+            string command = "/C echo " + userInput;
+            System.Diagnostics.Process.Start("cmd.exe", command); // Güvensiz: Komut zinciri manipüle edilebilir
         }
-         public void MemoryLeak()
+
+        public void InsecureDirectObjectReference(string userId)
         {
-            List<byte[]> largeData = new List<byte[]>();
-            for (int i = 0; i < 1000000; i++)
+            string query = $"SELECT * FROM Orders WHERE UserId = {userId}"; // Güvensiz: ID tahmin edilebilir
+            Console.WriteLine("SQL Query: " + query);
+        }
+
+        public void BrokenAuthentication(string password)
+        {
+            File.WriteAllText("password.txt", password); // Güvensiz: Düz metin olarak parola saklanıyor
+            Console.WriteLine("Password saved to file.");
+        }
+
+        public void SafeDeserialization(string jsonData)
+        {
+            try
             {
-                largeData.Add(new byte[1024 * 1024]); // Belleği sürekli dolduran büyük nesneler
+                var obj = JsonSerializer.Deserialize<object>(jsonData); // Güvenli deserialization
+                Console.WriteLine("Deserialized object: " + obj);
+            }
+            catch (JsonException ex)
+            {
+                Console.WriteLine("Deserialization failed: " + ex.Message);
             }
         }
+
+        public void SensitiveDataExposure(string apiKey)
+        {
+            Console.WriteLine("API Key: " + apiKey); // Güvensiz: Hassas veri loglanıyor
+        }
+
+        public void CrossSiteRequestForgery()
+        {
+            string form = "<form action='http://vulnerable.com/transfer' method='POST'>" +
+                          "<input type='hidden' name='amount' value='10000'>" +
+                          "</form>";
+            Console.WriteLine(form); // Güvensiz: CSRF koruması yok
+        }
+
+        public void PathTraversal(string filePath)
+        {
+            string content = File.ReadAllText(filePath); // Güvensiz: Dosya yolu manipüle edilebilir
+            Console.WriteLine("File Content: " + content);
+        }
+
+
+        public void DenialOfService()
+        {
+            string input = new string('A', int.MaxValue / 1000); // Çok büyük veri
+            bool result = System.Text.RegularExpressions.Regex.IsMatch(input, "(.A.)+"); // Güvensiz: Zaman aşımı
+            Console.WriteLine("Regex result: " + result);
+        }
+
+
+        public void HardcodedSecrets()
+        {
+            string connectionString = "Server=myServer;Database=myDB;User Id=admin;Password=admin123;"; // Güvensiz
+            Console.WriteLine("Connection String: " + connectionString);
+        }
+
+        public void InsufficientLogging(string username, string password)
+        {
+            if (username != "admin" || password != "12345")
+            {
+                // Hiçbir hata kaydedilmiyor
+                Console.WriteLine("Invalid credentials."); // Güvensiz: Detaylı kayıt yok
+                return;
+            }
+            Console.WriteLine("Login successful.");
+        }
+
     }
 }
