@@ -53,7 +53,7 @@ namespace Business.Concrete
             _userDal.Update(user);
             return new SuccessResult(Messages.UserUpdate);
         }
-        public class Credentials
+ public class Credentials
         {
             private string FirstName = "zekeriya ishak";
             private string password = "password";
